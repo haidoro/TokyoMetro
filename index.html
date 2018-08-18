@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>東京メトロ遅延情報</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>東京メトロ遅延情報</h1>
+	<div id="app">
+	<section v-if="hasError">
+	Error
+	</section>
+	<section v-else>
+		<div v-if="loading">
+			Loading...
+		</div>
+		<div v-else>
+		<ul v-cloak>
+			<li>{{railway}}</li>
+		</ul>
+		</div>
+	</section>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
+	<script src="js/app.js" type="module"></script>
+</body>
+</html>
