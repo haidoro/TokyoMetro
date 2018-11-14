@@ -6,8 +6,9 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<h1>東京メトロ遅延情報</h1>
+	<h1>東京メトロ情報</h1>
 	<div id="app">
+		<p><span>駅名：</span><input type="text" id="station" name="station" v-model="stationName"><button v-on:click="stationClick">click</button></p>
 	<section v-if="hasError">
 	Error
 	</section>
@@ -16,8 +17,13 @@
 			Loading...
 		</div>
 		<div v-else>
+		<h2>東京メトロ乗り換え路線</h2>
 		<ul v-cloak>
-			<li>{{railway}}</li>
+			<li v-for="rail in railway">{{rail}}</li>
+		</ul>
+		<h2>乗り換え路線</h2>
+		<ul v-cloak>
+			<li v-for="key in conect">{{key}}</li>
 		</ul>
 		</div>
 	</section>

@@ -1,25 +1,40 @@
 
-
-
 var app =new Vue({
 	el: '#app',
 	data: {
-		railway:null,
+		stationName:null,
+		railways:null,
 		hasError: false,
 		loading:true
 	},
-	mounted: function(){
-		axios.get("https://api.tokyometroapp.jp/api/v2/datapoints?rdf:type=odpt:Station&dc:title=東京&acl:consumerKey=****")
+	computed: {
+		railway:function(){
+			var railwayCopy=[...this.railways];
+			var rail=[];
+			for(var key in railwayCopy){
+				rail.push(railwayCopy[key]['owl:sameAs']);
+			}
+			return rail;
+		},
+		conect:function(){
+			var railwayCopy=[...this.railways];
+			return railwayCopy[0]['odpt:connectingRailway'];
+		}
+	},
+	methods:{
+		stationClick:function(){
+			
+		axios.get("https://api.tokyometroapp.jp/api/v2/datapoints?rdf:type=odpt:Station&dc:title="+this.stationName+"&acl:consumerKey=  ")
 		.then(function(response){
-			this.railway = response.data[0]['odpt:railway']
-			console.log(response.data[0]['odpt:railway'])
+			return this.railways = response.data
 		}.bind(this))
 		.catch(function(error){
 			console.log(error)
-			this.hasError = true
+			return this.hasError = true
 		}.bind(this))
 		.finally(function(){
-			this.loading = false
+			return this.loading = false
 		}.bind(this))
 	}
+}
 })
